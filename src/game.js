@@ -3,8 +3,16 @@ class Game {
         this.ctx = ctx;
         this.snake = new Snake(ctx);
         this.food = new Food(ctx);
+        this.background = new Background(ctx)
         this.intervalId = null;
         this.score = 0;
+    }
+
+    reset() {
+        this.snake.body = [ {x: 140, y: 140},  {x: 120, y: 140},  {x: 100, y: 140},  {x: 80, y: 140},  {x: 60, y: 140},];
+        this.snake.vx = 20
+        this.snake.vy = 0
+        document.getElementById('score').innerHTML = 0;
     }
 
     start() {
@@ -15,7 +23,12 @@ class Game {
             this.draw();
             this.snakeState();
             this.checkCollisions();
-        }, 1000/5)
+        }, 200)
+    }
+
+    stop() {
+        clearInterval(this.intervalId)
+        this.intervalId = null
     }
 
     clear() {
@@ -23,6 +36,7 @@ class Game {
     }
 
     draw() {
+        this.background.firstBoard();
         this.food.draw();
         this.snake.draw();
     }
@@ -59,14 +73,25 @@ class Game {
     }
 
     gameOver() {
-        clearInterval(this.intervalId)
-        this.ctx.font = "40px Comic Sans MS";
+        this.stop()
+
+        this.ctx.beginPath();
+        this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
+        this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.closePath();
+
+        this.ctx.beginPath();
+        this.ctx.font = "70px Courier New";
+        // this.ctx.font = "40px Comic Sans MS";
         this.ctx.textAlign = "center";
+        this.ctx.fillStyle = "#1adfed"
         this.ctx.fillText(
-            "GAME OVER",
+            "game over",
             this.ctx.canvas.width / 2,
             this.ctx.canvas.height / 2
         );
+        this.ctx.closePath();
+    
     }
 
 }

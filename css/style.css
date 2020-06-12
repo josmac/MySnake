@@ -1,7 +1,38 @@
+body {
+    margin: 0 auto;
+    box-sizing:border-box;  
+}
+
+#container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+}
+
+#game-area {
+    width: 80%;
+    height: 100%;
+    position:relative;
+
+}
+
 #canvas {
     border: 1px black solid;
-    display: block;
-    margin-top: 200px;
-    margin-left:auto;
-    margin-right:auto;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin:auto;  
 }
+
+#panel {
+    width: 20%;
+    height: 100%;
+    background-color: #000;
+    color: #1adfed
+}
+

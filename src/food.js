@@ -10,12 +10,16 @@ class Food {
 
     create() {
         this.x = Math.floor((Math.random() * this.w)/20)*20;
-        this.y = Math.floor((Math.random() * this.h)/20)*20;    
+        this.y = Math.floor((Math.random() * this.h)/20)*20;
+        console.log(this.x)
+        console.log(this.y)  
     }
 
     draw() {
+        this.ctx.beginPath()
         this.ctx.fillStyle = 'red';
         this.ctx.fillRect(this.x, this.y, 20, 20);
+        this.ctx.closePath()
 
     }
 

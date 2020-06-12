@@ -6,11 +6,19 @@
     <title>Document</title>
 </head>
 <body>
-    <div id='score'>0</div>
-    <button id="toggle">START</button>
-    <canvas id="canvas" width="800" height="500"></canvas>
+    <div id='container'>
+        <div id='panel'>
+            <div id='score'>0</div>
+            <button id="toggle">START</button>
+        </div>
+        <div id='game-area'>
+            <canvas id="canvas" width="500" height="500"></canvas>
+        </div>
+    </div>
+    
 
     <script type="text/javascript" src="./src/constants.js"></script>
+    <script type="text/javascript" src="./src/background.js"></script>
     <script type="text/javascript" src="./src/snake.js"></script>
     <script type="text/javascript" src="./src/food.js"></script>
     <script type="text/javascript" src="./src/game.js"></script>

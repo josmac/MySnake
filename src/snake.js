@@ -6,24 +6,25 @@ class Snake {
         this.vy = 0
         this.food = new Food(ctx)
         this.setListeners()
+        this.changeDirection = false
 
     }
 
     draw() {
         this.body.forEach((part) => {
-            if (part.x >= this.ctx.canvas.width) {
-                part.x = 0
+            if (part.x + 20 > this.ctx.canvas.width) {
+                part.x = 0;
             } 
-            if (part.y >= this.ctx.canvas.height) {
-                part.y = 0
+            if (part.y + 20 > this.ctx.canvas.height) {
+                part.y = 0;
             }
             if (part.x < 0) {
-                part.x = this.ctx.canvas.width - 20
+                part.x = this.ctx.canvas.width
             }
             if (part.y < 0) {
-                part.y = this.ctx.canvas.height - 20
+                part.y = this.ctx.canvas.height
             }
-            this.ctx.fillStyle = 'lightgreen';  
+            this.ctx.fillStyle = '#1adfed';  
             this.ctx.fillRect(part.x, part.y, 20, 20);
         });
     }
@@ -42,12 +43,12 @@ class Snake {
             if (e.keyCode === DOWN && this.vy !== -20 ) {
                 this.vy = 20;
                 this.vx = 0;
-
             }
             if (e.keyCode === LEFT && this.vx !== 20) {
                 this.vx = -20;
                 this.vy = 0;
             }
+            this.changeDirection = true
         });
     }
 
