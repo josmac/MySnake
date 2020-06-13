@@ -51,10 +51,10 @@ class Snake {
 
             const indexPart = this.body.indexOf(part)
             
-            const faceRight = indexPart === 0 && this.vx === 20;
-            const faceUp = indexPart === 0 && this.vy === -20;
-            const faceLeft = indexPart === 0 && this.vx === -20;
-            const faceDown = indexPart === 0 && this.vy === 20;
+            const faceRight = indexPart === 0 && part.x - (this.body[1].x) === 20;
+            const faceUp = indexPart === 0 && part.y - (this.body[1].y) === -20;
+            const faceLeft = indexPart === 0 && part.x - (this.body[1].x) === -20;
+            const faceDown = indexPart === 0 && part.y - (this.body[1].y) === 20;
 
             const tailRight = indexPart === this.body.length-1 && part.x - (this.body[this.body.length-2].x) === -20;
             const tailUp = indexPart === this.body.length-1 && part.y - (this.body[this.body.length-2].y) === 20;
@@ -62,11 +62,18 @@ class Snake {
             const tailDown = indexPart === this.body.length-1 && part.y - (this.body[this.body.length-2].y) === -20;
 
             const elbowUpLeft = indexPart > 0 && indexPart < this.body.length-1 && part.y - (this.body[indexPart-1].y) === 20 && part.x - (this.body[indexPart+1].x) === 20;
+            const elbowUpRight = indexPart > 0 && indexPart < this.body.length-1 && part.y - (this.body[indexPart-1].y) === 20 && part.x - (this.body[indexPart+1].x) === -20;
+            const elbowDownLeft = indexPart > 0 && indexPart < this.body.length-1 && part.y - (this.body[indexPart-1].y) === -20 && part.x - (this.body[indexPart+1].x) === 20;
+            const elbowDownRight = indexPart > 0 && indexPart < this.body.length-1 && part.y - (this.body[indexPart-1].y) === -20 && part.x - (this.body[indexPart+1].x) === -20;
             
-
-            console.log(elbowUpLeft)
+            const elbowRightDown = indexPart > 0 && indexPart < this.body.length-1 && part.y - (this.body[indexPart+1].y) === 20 && part.x - (this.body[indexPart-1].x) === -20;
+            const elbowLeftDown = indexPart > 0 && indexPart < this.body.length-1 && part.y - (this.body[indexPart+1].y) === 20 && part.x - (this.body[indexPart-1].x) === 20;
+            const elbowRightUp = indexPart > 0 && indexPart < this.body.length-1 && part.y - (this.body[indexPart+1].y) === -20 && part.x - (this.body[indexPart-1].x) === -20;
+            const elbowLeftUp = indexPart > 0 && indexPart < this.body.length-1 && part.y - (this.body[indexPart+1].y) === -20 && part.x - (this.body[indexPart-1].x) === 20;
             
-
+            const verticalPart = indexPart > 0 && indexPart < this.body.length-1 && part.x - (this.body[indexPart-1].x) === 0;
+            const horizontalPart = indexPart > 0 && indexPart < this.body.length-1 && part.y - (this.body[indexPart-1].y) === 0;
+        
             switch (true) {
                 case (faceRight):
                     this.img.columnIndex = 0;
@@ -112,15 +119,56 @@ class Snake {
                     this.img.columnIndex = 3;
                     this.img.rowIndex = 2;
                     this.drawSprite(part);
-                // default:
-                //     this.ctx.fillStyle = '#1adfed';  
-                //     this.ctx.fillRect(part.x, part.y, 20, 20);
+                    break;
+                case (elbowUpRight):
+                    this.img.columnIndex = 2;
+                    this.img.rowIndex = 2;
+                    this.drawSprite(part);
+                    break;
+                case (elbowDownRight):
+                    this.img.columnIndex = 1;
+                    this.img.rowIndex = 2;
+                    this.drawSprite(part);
+                    break;
+                case (elbowDownLeft):
+                    this.img.columnIndex = 0;
+                    this.img.rowIndex = 2;
+                    this.drawSprite(part);
+                    break;
+                case (elbowRightDown):
+                    this.img.columnIndex = 2;
+                    this.img.rowIndex = 2;
+                    this.drawSprite(part);
+                    break;
+                case (elbowLeftDown):
+                    this.img.columnIndex = 3;
+                    this.img.rowIndex = 2;
+                    this.drawSprite(part);
+                    break;
+                case (elbowRightUp):
+                    this.img.columnIndex = 1;
+                    this.img.rowIndex = 2;
+                    this.drawSprite(part);
+                    break;
+                case (elbowLeftUp):
+                    this.img.columnIndex = 0;
+                    this.img.rowIndex = 2;
+                    this.drawSprite(part);
+                    break;
+
+
+                case (verticalPart):
+                    this.img.columnIndex = 1;
+                    this.img.rowIndex = 3;
+                    this.drawSprite(part);
+                    break;
+                    
+                case (horizontalPart):
+                    this.img.columnIndex = 0;
+                    this.img.rowIndex = 3;
+                    this.drawSprite(part);
+                    break;
             }
-
-            
-
-            // this.ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
-            // this.ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
         });
     }
 

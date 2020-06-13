@@ -6,6 +6,9 @@ class Game {
         this.background = new Background(ctx)
         this.intervalId = null;
         this.score = 0;
+
+        this.img = new Image()
+        this.img.src = './img/gameOver.png'
     }
 
     reset() {
@@ -79,18 +82,13 @@ class Game {
         this.ctx.fillStyle = "rgba(0, 0, 0, 0.5)";
         this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
         this.ctx.closePath();
-
-        this.ctx.beginPath();
-        this.ctx.font = "70px Courier New";
-        // this.ctx.font = "40px Comic Sans MS";
-        this.ctx.textAlign = "center";
-        this.ctx.fillStyle = "#1adfed"
-        this.ctx.fillText(
-            "game over",
-            this.ctx.canvas.width / 2,
-            this.ctx.canvas.height / 2
+        this.ctx.drawImage(
+            this.img,
+            40,
+            190,
+            417,
+            98,
         );
-        this.ctx.closePath();
     
     }
 
