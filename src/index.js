@@ -2,24 +2,19 @@ const canvas = document.getElementById("canvas")
 const ctx = canvas.getContext("2d")
 
 const game = new Game(ctx)
+const bg = new Background(ctx)
 
 
 
 window.onload = function() {
-    const board1 = new Image()
-    board1.src = './img/Board1.png'
-    ctx.drawImage(
-        board1,
-        0,
-        0,
-        ctx.canvas.width,
-        ctx.canvas.height
-    )
-
+    bg.firstBoard()
 }
 
-document.querySelector("#toggle").onclick = function() {
+const toggle = document.querySelector(".toggle")
+
+toggle.onclick = function() {
     if (game.intervalId === null) {
+        toggle.classList.add("clicked");
         game.reset()
         game.start()
         this.innerText = 'START'

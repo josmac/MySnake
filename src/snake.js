@@ -5,8 +5,6 @@ class Snake {
         this.vx = 20
         this.vy = 0
         this.food = new Food(ctx)
-        
-        this.changeDirection = false
 
         this.img = new Image()
         this.img.frames = 4
@@ -15,7 +13,7 @@ class Snake {
         this.img.src = './img/sprite.png'
 
         this.setListeners()
-        this.changeDirection = false
+        this.changeDirection = true
 
     }
 
@@ -36,18 +34,6 @@ class Snake {
 
     draw() {
         this.body.forEach((part) => {
-            if (part.x + 20 > this.ctx.canvas.width) {
-                part.x = 0;
-            } 
-            if (part.y + 20 > this.ctx.canvas.height) {
-                part.y = 0;
-            }
-            if (part.x < 0) {
-                part.x = this.ctx.canvas.width
-            }
-            if (part.y < 0) {
-                part.y = this.ctx.canvas.height
-            }
 
             const indexPart = this.body.indexOf(part)
             
@@ -75,95 +61,93 @@ class Snake {
             const horizontalPart = indexPart > 0 && indexPart < this.body.length-1 && part.y - (this.body[indexPart-1].y) === 0;
         
             switch (true) {
-                case (faceRight):
+                case faceRight:
                     this.img.columnIndex = 0;
                     this.img.rowIndex = 0;
                     this.drawSprite(part);
                     break;
-                case (faceUp):
+                case faceUp:
                     this.img.columnIndex = 1;
                     this.img.rowIndex = 0;
                     this.drawSprite(part);
                     break;
-                case (faceDown):
+                case faceDown:
                     this.img.columnIndex = 3;
                     this.img.rowIndex = 0;
                     this.drawSprite(part);
                     break;
-                case (faceLeft):
+                case faceLeft:
                     this.img.columnIndex = 2;
                     this.img.rowIndex = 0;
                     this.drawSprite(part);
                     break;
-                case (tailRight):
+                case tailRight:
                     this.img.columnIndex = 2;
                     this.img.rowIndex = 1;
                     this.drawSprite(part);
                     break;
-                case (tailUp):
+                case tailUp:
                     this.img.columnIndex = 3;
                     this.img.rowIndex = 1;
                     this.drawSprite(part);
                     break;
-                case (tailDown):
+                case tailDown:
                     this.img.columnIndex = 1;
                     this.img.rowIndex = 1;
                     this.drawSprite(part);
                     break;
-                case (tailLeft):
+                case tailLeft:
                     this.img.columnIndex = 0;
                     this.img.rowIndex = 1;
                     this.drawSprite(part);
                     break;
-                case (elbowUpLeft):
+                case elbowUpLeft:
                     this.img.columnIndex = 3;
                     this.img.rowIndex = 2;
                     this.drawSprite(part);
                     break;
-                case (elbowUpRight):
+                case elbowUpRight:
                     this.img.columnIndex = 2;
                     this.img.rowIndex = 2;
                     this.drawSprite(part);
                     break;
-                case (elbowDownRight):
+                case elbowDownRight:
                     this.img.columnIndex = 1;
                     this.img.rowIndex = 2;
                     this.drawSprite(part);
                     break;
-                case (elbowDownLeft):
+                case elbowDownLeft:
                     this.img.columnIndex = 0;
                     this.img.rowIndex = 2;
                     this.drawSprite(part);
                     break;
-                case (elbowRightDown):
+                case elbowRightDown:
                     this.img.columnIndex = 2;
                     this.img.rowIndex = 2;
                     this.drawSprite(part);
                     break;
-                case (elbowLeftDown):
+                case elbowLeftDown:
                     this.img.columnIndex = 3;
                     this.img.rowIndex = 2;
                     this.drawSprite(part);
                     break;
-                case (elbowRightUp):
+                case elbowRightUp:
                     this.img.columnIndex = 1;
                     this.img.rowIndex = 2;
                     this.drawSprite(part);
                     break;
-                case (elbowLeftUp):
+                case elbowLeftUp:
                     this.img.columnIndex = 0;
                     this.img.rowIndex = 2;
                     this.drawSprite(part);
                     break;
-
-
-                case (verticalPart):
+                case verticalPart:
                     this.img.columnIndex = 1;
                     this.img.rowIndex = 3;
                     this.drawSprite(part);
                     break;
                     
-                case (horizontalPart):
+                case horizontalPart:
                     this.img.columnIndex = 0;
                     this.img.rowIndex = 3;
                     this.drawSprite(part);
@@ -175,23 +159,26 @@ class Snake {
 
     setListeners() {
         document.addEventListener('keydown', e => {
-            if (e.keyCode === UP && this.vy !== 20) {
-                this.vy = -20;
-                this.vx = 0;
+
+            if (this.changeDirection) {
+                if (e.keyCode === UP && this.vy !== 20) {
+                    this.vy = -20;
+                    this.vx = 0;    
+                }
+                if (e.keyCode === RIGHT && this.vx !== -20) {
+                    this.vx = 20;
+                    this.vy = 0;   
+                }
+                if (e.keyCode === DOWN && this.vy !== -20 ) {
+                    this.vy = 20;
+                    this.vx = 0;   
+                }
+                if (e.keyCode === LEFT && this.vx !== 20) {
+                    this.vx = -20;
+                    this.vy = 0;   
+                }
+                this.changeDirection = false;
             }
-            if (e.keyCode === RIGHT && this.vx !== -20) {
-                this.vx = 20;
-                this.vy = 0;
-            }
-            if (e.keyCode === DOWN && this.vy !== -20 ) {
-                this.vy = 20;
-                this.vx = 0;
-            }
-            if (e.keyCode === LEFT && this.vx !== 20) {
-                this.vx = -20;
-                this.vy = 0;
-            }
-            this.changeDirection = true
         });
     }
 
